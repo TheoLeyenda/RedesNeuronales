@@ -53,7 +53,7 @@ public class TankBase : MonoBehaviour
         return (this.transform.position - nearMine.transform.position).sqrMagnitude <= 2.0f;
     }
 
-    protected void SetForces(float leftForce, float rightForce, float dt)
+    protected void SetForces(float leftForce, float rightForce, float dt, bool reverse)
     {
         // Tank position
         Vector3 pos = this.transform.position;
@@ -65,11 +65,16 @@ public class TankBase : MonoBehaviour
         this.transform.rotation *= Quaternion.AngleAxis(rotFactor * RotSpeed * dt, Vector3.up);
 
         // Move the tank in current forward direction
-        pos += this.transform.forward * Mathf.Abs(rightForce + leftForce) * 0.5f * Speed * dt;
-
+        if (!reverse)
+        {
+            pos += this.transform.forward * Mathf.Abs(rightForce + leftForce) * 0.5f * Speed * dt;
+        }
+        else
+        {
+            pos -= this.transform.forward * Mathf.Abs(rightForce + leftForce) * 0.5f * Speed * dt;
+        }
         // Sets current position
         this.transform.position = pos;
-
     }
 
 	// Update is called once per frame

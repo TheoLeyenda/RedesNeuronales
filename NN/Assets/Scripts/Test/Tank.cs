@@ -26,7 +26,7 @@ public class Tank : TankBase
         // Think!!! 
         float[] output = brain.Synapsis(inputs);
 
-        SetForces(output[0], output[1], dt);
+        SetForces(output[0], output[1], dt,false);
 	}
     
     protected override void OnTakeMine(GameObject mine)
